@@ -3,11 +3,21 @@
 <head>
 <meta charset="utf-8">
 <title>Angular Demo</title>
+
+<!--instructor prefers including Angular first, because
+    for load time, it doesn't matter so much anymore
+    due to faster internet connections these days.-->
+<!--having script tag in HEAD is like doing DOM ready in jQuery-->
 <script src="bower_components/angular/angular.js"></script>
+
 </head>
 <body ng-app>
 
-<h1 ng-init="person = {name: 'dan'}">Welcome {{ person.name }}</h1>
+<!--ng-init is a directive, and sort of acting like a Person model-->
+<!--person.name and person.age can be used anywhere after ng-init-->
+<h1 ng-init="person = {name: 'dan', age: 5}">Welcome {{ person.name }}</h1>
+
+<p>You are {{ person.age }} years old.</p>
 
 <p><input type="text" ng-model="person.name"></p>
 
