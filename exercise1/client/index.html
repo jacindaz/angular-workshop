@@ -25,42 +25,65 @@
 
 <div class="container" ng-controller="LocalUserCtrl">
     <h2>Local Users</h2>
-    
+
+    <!--search bar-->
     <div class="form-group">
+
+      <!--usually put ng-model on a form element, so that you can search a model-->
+      <!---->
         <input type="text" ng-model="search" class="form-control" placeholder="Search">
+        <input type="text" ng-model="search2" class="form-control" placeholder="Search">
     </div>
-    
+
     <ul class="js-localUsers">
-        <li ng-repeat="user in localUsers | filter:search">{{ user.firstName }} {{ user.lastName }}</li>
+
+        <!--looping through localUsers array, using ng-repeat-->
+        <!--filter:__(filter)__-->
+        <!--in this example, search is the filter-->
+        <!--can build custom filters, and chain multiple filters-->
+        <li ng-repeat="user in localUsers | filter:search | filter:search2">{{ user.firstName }} {{ user.lastName }}</li>
     </ul>
-    
-    <p><a class="js-addLocalUser" ng-click="addUser()" ng-href="">Add User</a></p>
+
+    <!--need to make sure that the addUser() method
+        is inside the LocalUserCtrl (local user controller)-->
+    <p><a class="js-addLocalUser" ng-click="addUser('Jacinda')" ng-href="">Add User</a></p>
 </div>
 
 <hr>
 
 <div class="container" ng-controller="RemoteUserCtrl">
     <h2>Remote Users</h2>
-    
+
     <ul>
         <li ng-repeat="user in remoteUsers">{{ user.firstName }} {{ user.lastName }} <a ng-click="deleteUser(user)">Delete</a></li>
     </ul>
-    
+
+    <!-- show or hide some HTML based on a property in your scope-->
+    <!-- showForm is our property, in this example-->
+    <!-- is an example of where the logic gets pulled into the view-->
+    <!-- not a clear advantage in putting more logic in the view,
+        but in the long run, it's fast/easier/cleaner to put in view
+        it's the Angular way! -->
     <p><a ng-click="showForm = !showForm" ng-href=""><span ng-show="!showForm">Create User</span><span ng-show="showForm">Hide Form</span></a></p>
-    
+
+    <!--novalidate is HTML5, disable the CSS that comes with HTML5 form validation-->
+    <!--have to give the form tag a name, and then call .$invalid on that-->
     <form role="form" name="createUserForm" ng-submit="createUser(user)" ng-show="showForm" novalidate>
         <br>
-        
+
         <div class="form-group">
             <label for="firstName">First Name</label>
             <input type="text" class="form-control" id="firstName" ng-model="user.firstName" required>
         </div>
-        
+
         <div class="form-group">
             <label for="lastName">Last Name</label>
             <input type="text" class="form-control" id="lastName" ng-model="user.lastName" required>
         </div>
 
+        <!--can use some HTML5 validation-->
+        <!--$invalid pulls in HTML5 required attribute-->
+        <!--have to give the form tag a name, and then call .$invalid on that-->
         <button type="submit" class="btn btn-primary" ng-disabled="createUserForm.$invalid">Submit</button>
     </form>
 </div>

@@ -8,6 +8,10 @@
     "body-parser": "^1.9.0",
     "lodash": "^2.4.1"
   },
+
+  "__comment": "can define scripts/aliases/shortcuts you want to run,
+                then you run npm ___(script name)___, so the example
+                below would be npm start",
   "scripts": {
     "start": "node server.js"
   }
